@@ -1,5 +1,5 @@
 # ilp-service
-> An Interledge Protocol (ILP) sending and receiving client with a RESTful(ish) API.
+> An Interledge Protocol (ILP) sending and receiving client with a RESTful(ish) API, designed for the Mojaloop.io project.
 
 The `ilp-service` is designed to be used to build Interledger-capable systems on top of the [Interledger Payment Request (IPR)][] transport protocol. For more details on the Interledger protocol suite layers, see [IL-RFC 1: Interledger Architecture][].
 
@@ -20,7 +20,7 @@ Contents:
 
 You can deploy the `ilp-service` with the [ILP Ansible Playbook][].
 
-[ILP Ansible Playbook]: https://github.com/LevelOneProject/Docs/blob/master/ILP/ansible/ansible.yml
+[ILP Ansible Playbook]: https://github.com/mojaloop/docs/blob/master/ILP/ansible/ansible.yml
 
 ## Configuration
 
@@ -44,7 +44,7 @@ The `ilp-service` is configured using environment variables. For deployment, [IL
 
 A "Ledger account URI" is the HTTPS URL of an account in the [ILP Ledger Adapter API][].
 
-[ILP Ledger Adapter API]: https://github.com/LevelOneProject/Docs/blob/master/ILP/ledger-adapter.md
+[ILP Ledger Adapter API]: https://github.com/interledger/rfcs/blob/master/0012-five-bells-ledger-api/0012-five-bells-ledger-api.md
 
 ## API
 
