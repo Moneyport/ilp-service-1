@@ -37,18 +37,35 @@ async function incomingPaymentCallback (config, factory, connectorAddress, conne
 
   debug('L1p-Trace-Id=' + paymentId, 'incoming prepare, transfer:', transfer, 'ipr:', ipr)
   debug('L1p-Trace-Id=' + paymentId, 'submitting prepare notification to backend for review')
-  await agent
-    .post(config.backend_url + '/notifications')
-    .send({ paymentId, ipr, destinationAccount, data: parsedData, status: 'prepared' })
-    .catch((e) => { throw new Error(e.response ? e.response.error.text : e.message) })
+  if (!config.skipBackendReview) {
+    try {
+      await agent
+        .post(config.backend_url + '/notifications')
+        .send({ paymentId, ipr, destinationAccount, data: parsedData, status: 'prepared' })
+        .catch((e) => { throw new Error(e.response ? e.response.error.text : e.message) })
+    } catch (err) {
+      debug('L1p-Trace-Id=' + paymentId, 'backend rejected payment', err)
+      throw err
+    }
+  }
 
   if (transfer.from.startsWith(connectorAddress)) {
     debug('L1p-Trace-Id=' + paymentId, 'fulfilling connector source transfer')
-    await connector.fulfillCondition(transfer.id, fulfillment)
+    try {
+      await connector.fulfillCondition(transfer.id, fulfillment)
+    } catch (err) {
+      debug('L1p-Trace-Id=' + paymentId, 'error fulfilling source transfer', err)
+      throw err
+    }
   }
 
   debug('L1p-Trace-Id=' + paymentId, 'fulfilling destination transfer')
-  await fulfill()
+  try {
+    await fulfill()
+  } catch (err) {
+    debug('L1p-Trace-Id=' + paymentId, 'error fulfilling destination transfer', err)
+    throw err
+  }
 
   debug('L1p-Trace-Id=' + paymentId, 'executed transfer')
   debug('L1p-Trace-Id=' + paymentId, 'submitting execute notification to backend')

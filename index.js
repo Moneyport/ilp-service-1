@@ -23,6 +23,7 @@ const config = {
   },
   connector: process.env.ILP_SERVICE_CONNECTOR_ACCOUNT,
   port: process.env.ILP_SERVICE_PORT || 4000,
+  skipBackendReview: process.env.ILP_SERVICE_SKIP_BACKEND_REVIEW === 'true'
 }
 
 debug('instantiating ilp-service app')
