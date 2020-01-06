@@ -22,7 +22,7 @@
     "eslint-plugin-standard": "^2.0.0",
     "ilp-packet": "^1.2.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.4.2",
+    "mocha": "^7.0.0",
     "mock-require": "^2.0.2",
     "nock": "^9.0.13"
   },
